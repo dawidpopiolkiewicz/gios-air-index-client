@@ -19,7 +19,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  */
 public class ApiClient {
 
-    private final static String BASE_URL = "http://10.0.2.2:8080/";
+    private final static String BASE_URL = "http://api.gios.gov.pl/pjp-api/rest/";
 
     /**
      * Gets client.
