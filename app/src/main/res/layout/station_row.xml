@@ -33,7 +33,7 @@
             android:layout_below="@id/stationNameValue"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:text="Indeks: "
+            android:text="@string/indexTitle"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
@@ -47,7 +47,7 @@
             android:layout_below="@id/indexLevelNameValue"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:text="Adres: "
+            android:text="@string/addressTitle"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/black"
             />
@@ -59,7 +59,6 @@
             android:layout_toRightOf="@id/stationAddress"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:text="adres: "
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/black"
             />
@@ -70,7 +69,7 @@
             android:layout_below="@id/stationAddress"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:text="Miasto: "
+            android:text="@string/cityTitle"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/black"
             />
@@ -82,7 +81,6 @@
             android:layout_toRightOf="@id/stationAddress"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:text="miasto: "
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/black"
             />
@@ -96,7 +94,7 @@
             android:layout_below="@id/stationCity"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:text="Dane z: "
+            android:text="@string/dataFrom"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/black"
             />
@@ -109,7 +107,6 @@
             android:layout_toRightOf="@id/calcDate"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:text="wartość"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/black"
             />

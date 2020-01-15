@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_margin="20dp"
-        android:text="Miasto: "
+        android:text="@string/cityTitle"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/black" />
 
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/cityValue"
         android:layout_margin="20dp"
-        android:text="Indeks: "
+        android:text="@string/indexTitle"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/black" />
 
@@ -81,7 +81,7 @@
         android:layout_height="50dp"
         android:layout_below="@id/indexValue"
         android:layout_centerHorizontal="true"
-        android:text="Szukaj" />
+        android:text="@string/search" />
 
     <ListView
         android:id="@+id/stationsListView"

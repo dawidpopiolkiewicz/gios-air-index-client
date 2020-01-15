@@ -11,5 +11,11 @@
     <string name="giosApi">https://powietrze.gios.gov.pl/pjp/content/api</string>
     <string name="healthInformations">http://powietrze.gios.gov.pl/pjp/content/health_informations</string>
     <string name="author">Wykonanie: Dawid Popiołkiewicz</string>
+    <string name="indexTitle">Indeks:</string>
+    <string name="addressTitle">Adres:</string>
+    <string name="cityTitle">Miasto:</string>
+    <string name="dataFrom">Dane z:</string>
+    <string name="healthInformationsTitle">Obliczanie indeksu powietrza:</string>
+    <string name="dataSourceTitle">Źródło danych:</string>
 
 </resources>
