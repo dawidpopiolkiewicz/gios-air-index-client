@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainBackgroundColor"
+    android:gravity="center">
+
+
+    <ImageView
+        android:id="@+id/airindexlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="20dp"
+        android:src="@mipmap/ic_air_index_round" />
+
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/airindexlogo"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="20dp"
+        android:text="@string/app_name"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/subtitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appName"
+        android:layout_centerInParent="true"
+        android:text="@string/dataSourceTitle"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/source1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subtitle1"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="20dp"
+        android:autoLink="web"
+        android:text="@string/giosApi"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/subtitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/source1"
+        android:layout_centerInParent="true"
+        android:text="@string/healthInformationsTitle"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/indexSource"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subtitle2"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="20dp"
+        android:autoLink="web"
+        android:text="@string/healthInformations"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/subtitleAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/indexSource"
+        android:layout_centerInParent="true"
+        android:text="@string/author"
+        android:textSize="15sp" />
+
+
+</RelativeLayout>

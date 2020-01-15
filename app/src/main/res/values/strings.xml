@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">gios-air-index-client</string>
+    <string name="app_name">Indeks Jakości Powietrza</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="search">Szukaj</string>
+    <string name="start">Start</string>
+    <string name="stations">Stacje pomiarowe</string>
+    <string name="about">O aplikacji</string>
+    <string name="others">Inne</string>
+    <string name="search_stations">Szukaj stacji</string>
+    <string name="giosApi">https://powietrze.gios.gov.pl/pjp/content/api</string>
+    <string name="healthInformations">http://powietrze.gios.gov.pl/pjp/content/health_informations</string>
+    <string name="author">Wykonanie: Dawid Popiołkiewicz</string>
+    <string name="indexTitle">Indeks:</string>
+    <string name="addressTitle">Adres:</string>
+    <string name="cityTitle">Miasto:</string>
+    <string name="dataFrom">Dane z:</string>
+    <string name="healthInformationsTitle">Obliczanie indeksu powietrza:</string>
+    <string name="dataSourceTitle">Źródło danych:</string>
+
 </resources>
