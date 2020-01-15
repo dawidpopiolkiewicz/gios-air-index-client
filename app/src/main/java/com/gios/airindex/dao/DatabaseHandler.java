@@ -143,7 +143,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
     public List<AirIndexStation> getStationListByIndex(String index) {
         database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_INDEX_LEVEL_NAME + " = " + index, null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_INDEX_LEVEL_NAME + " = " + "\"" + index + "\"", null);
         return getStationsList(cursor);
     }
 
@@ -151,8 +151,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<AirIndexStation> getStationListByCityAndIndex(String city, String index) {
         database = this.getReadableDatabase();
         String s = "SELECT * FROM Station WHERE city like '%Warszawa%' AND indexLevelName like '%Dobry%'";
-        final String sql = "\"SELECT * FROM \" + TABLE_NAME + \" WHERE \" + KEY_INDEX_LEVEL_NAME + \" = \" + \"\\\"\" + index + \"\\\"\" + \" AND \" + KEY_CITY + \" = \" + \"\\\"\" + city + \"\\\"\"";
-        Cursor cursor = database.rawQuery(s, null);
+        final String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_INDEX_LEVEL_NAME + " = " + "\"" + index + "\"" + " AND " + KEY_CITY + " = " + "\"" + city + "\"";
+        Cursor cursor = database.rawQuery(sql, null);
         return getStationsList(cursor);
     }
 

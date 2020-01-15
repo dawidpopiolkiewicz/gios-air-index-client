@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,7 +17,6 @@ import com.gios.airindex.dao.DatabaseHandler;
 import com.gios.airindex.fragment.SearchStationFragment;
 import com.gios.airindex.fragment.StartFragment;
 import com.gios.airindex.fragment.StationsFragment;
-import com.gios.airindex.model.AirIndexStation;
 import com.gios.airindex.model.AqIndex;
 import com.gios.airindex.model.Station;
 import com.gios.airindex.service.StationService;
@@ -43,13 +43,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseHandler databaseHandler;
     private NavigationView navigationView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initElements();
         refreshData();
-        List<AirIndexStation> all = databaseHandler.getAll();
-        Log.i(CLASS_TAG, "List size on activity oncreate: " + String.valueOf(all.size()));
     }
 
     @Override
@@ -69,12 +68,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void initElements() {
         setContentView(R.layout.activity_main);
-
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StartFragment()).commit();
-
         databaseHandler = new DatabaseHandler(MainActivity.this);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -85,12 +82,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 R.string.navigation_drawer_open, navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setCheckedItem(R.id.nav_search);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
                 switch (menuItem.getItemId()) {
+                    case R.id.nav_start:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StartFragment()).commit();
+                        break;
                     case R.id.nav_stations:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StationsFragment()).commit();
                         break;
@@ -102,13 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         });
-//                if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                    new MessageFragment()).commit();
-//            navigationView.setCheckedItem(R.id.nav_message);
-//
     }
-
 
     private void refreshData() {
         Retrofit client = ApiClient.getClient();
@@ -143,9 +136,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.i(CLASS_TAG, t.getMessage());
             }
         });
-        List<String> allCities = databaseHandler.getAllCities();
-        List<AirIndexStation> all = databaseHandler.getAll();
-        Log.i(CLASS_TAG, "List size after update/insert: " + String.valueOf(all.size()));
     }
 
     private void saveStation(Station station, AqIndex aqIndex) {

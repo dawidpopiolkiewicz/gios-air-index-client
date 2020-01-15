@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.gios.airindex.MainActivity;
 import com.gios.airindex.R;
 import com.gios.airindex.adapter.StationsAdapter;
 import com.gios.airindex.dao.DatabaseHandler;
@@ -26,7 +25,6 @@ import com.gios.airindex.model.AirIndexStation;
 
 import java.util.List;
 
-import static com.gios.airindex.R.array.index_value_array;
 
 /**
  * The type Search station fragment.
@@ -34,6 +32,10 @@ import static com.gios.airindex.R.array.index_value_array;
  * @author Dawid Popiołkiewicz
  */
 public class SearchStationFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+
+    private final String DATA_DOWNLOADED = "Dane zostały pobrane";
+    private final String NO_DATA = "Brak danych o wybranych parametrach";
+    private final String CHOOSE_FILTER = "Wybierz filtr szukania";
 
     private View view;
     private ListView listView;
@@ -93,13 +95,11 @@ public class SearchStationFragment extends Fragment implements View.OnClickListe
                     ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_item, allCities);
                     cityAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                     citySpinner.setAdapter(cityAdapter);
-
                     List<String> allIndexes = databaseHandler.getAllIndexes();
                     ArrayAdapter<String> indexAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_item, allIndexes);
                     indexAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                     indexSpinner.setAdapter(indexAdapter);
-
-                    Toast.makeText(getContext(), "Dane zostały pobrane",
+                    Toast.makeText(getContext(), DATA_DOWNLOADED,
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -118,9 +118,14 @@ public class SearchStationFragment extends Fragment implements View.OnClickListe
                 @Override
                 public void run() {
                     List<AirIndexStation> stationListByCity = databaseHandler.getStationListByCityAndIndex(citySpinner.getSelectedItem().toString(), indexSpinner.getSelectedItem().toString());
-                   setupAdapter(stationListByCity);
-                    Toast.makeText(getContext(), "Checked",
-                            Toast.LENGTH_SHORT).show();
+                    if (stationListByCity.size() == 0) {
+                        Toast.makeText(getContext(), NO_DATA,
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        setupAdapter(stationListByCity);
+                        Toast.makeText(getContext(), DATA_DOWNLOADED,
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             };
@@ -133,17 +138,41 @@ public class SearchStationFragment extends Fragment implements View.OnClickListe
                 @Override
                 public void run() {
                     List<AirIndexStation> stationListByCity = databaseHandler.getStationListByCity(citySpinner.getSelectedItem().toString());
-                    setupAdapter(stationListByCity);
-                    Toast.makeText(getContext(), "Checked",
-                            Toast.LENGTH_SHORT).show();
+                    if (stationListByCity.size() == 0) {
+                        Toast.makeText(getContext(), NO_DATA,
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        setupAdapter(stationListByCity);
+                        Toast.makeText(getContext(), DATA_DOWNLOADED,
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             };
 
+        } else if (!citySwitch.isChecked() && indexSwitch.isChecked()) {
+            handler = new Handler();
+            runnable = new Runnable() {
+                @Override
+                public void run() {
+                    List<AirIndexStation> stationListByIndex = databaseHandler.getStationListByIndex(indexSpinner.getSelectedItem().toString());
+                    if (stationListByIndex.size() == 0) {
+                        Toast.makeText(getContext(), NO_DATA,
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        setupAdapter(stationListByIndex);
+                        Toast.makeText(getContext(), DATA_DOWNLOADED,
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            };
+        } else if (!citySwitch.isChecked() && !indexSwitch.isChecked()) {
+            Toast.makeText(getContext(), CHOOSE_FILTER,
+                    Toast.LENGTH_LONG).show();
         }
 
         handler.postDelayed(runnable, 0);
-        Toast.makeText(getContext(), "Checked",
-                Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -162,9 +191,15 @@ public class SearchStationFragment extends Fragment implements View.OnClickListe
     }
 
 
-    private void setupAdapter(List<AirIndexStation> airIndexStations) {
+    private void setupAdapter(final List<AirIndexStation> airIndexStations) {
         StationsAdapter stationsAdapter = new StationsAdapter(getActivity().getBaseContext(), R.layout.station_row, airIndexStations);
         listView.setAdapter(stationsAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), "Wybrano stacje: " + airIndexStations.get(position).getStationName(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }
