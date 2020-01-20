@@ -87,21 +87,18 @@ public class SearchStationFragment extends Fragment implements View.OnClickListe
 
     private void loadData() {
         handler = new Handler();
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                if (getActivity() != null) {
-                    List<String> allCities = databaseHandler.getAllCities();
-                    ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_item, allCities);
-                    cityAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                    citySpinner.setAdapter(cityAdapter);
-                    List<String> allIndexes = databaseHandler.getAllIndexes();
-                    ArrayAdapter<String> indexAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_item, allIndexes);
-                    indexAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                    indexSpinner.setAdapter(indexAdapter);
-                    Toast.makeText(getContext(), DATA_DOWNLOADED,
-                            Toast.LENGTH_SHORT).show();
-                }
+        runnable = () -> {
+            if (getActivity() != null) {
+                List<String> allCities = databaseHandler.getAllCities();
+                ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_item, allCities);
+                cityAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                citySpinner.setAdapter(cityAdapter);
+                List<String> allIndexes = databaseHandler.getAllIndexes();
+                ArrayAdapter<String> indexAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_item, allIndexes);
+                indexAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                indexSpinner.setAdapter(indexAdapter);
+                Toast.makeText(getContext(), DATA_DOWNLOADED,
+                        Toast.LENGTH_SHORT).show();
             }
         };
         handler.postDelayed(runnable, 0);
@@ -110,60 +107,47 @@ public class SearchStationFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
         if (citySwitch.isChecked() && indexSwitch.isChecked()) {
-
             handler = new Handler();
-            runnable = new Runnable() {
-                @Override
-                public void run() {
-                    List<AirIndexStation> stationListByCity = databaseHandler.getStationListByCityAndIndex(citySpinner.getSelectedItem().toString(), indexSpinner.getSelectedItem().toString());
-                    if (stationListByCity.size() == 0) {
-                        Toast.makeText(getContext(), NO_DATA,
-                                Toast.LENGTH_LONG).show();
-                    } else {
-                        setupAdapter(stationListByCity);
-                        Toast.makeText(getContext(), DATA_DOWNLOADED,
-                                Toast.LENGTH_SHORT).show();
-                    }
+            runnable = () -> {
+                List<AirIndexStation> stationListByCity = databaseHandler.getStationListByCityAndIndex(citySpinner.getSelectedItem().toString(), indexSpinner.getSelectedItem().toString());
+                if (stationListByCity.size() == 0) {
+                    Toast.makeText(getContext(), NO_DATA,
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    setupAdapter(stationListByCity);
+                    Toast.makeText(getContext(), DATA_DOWNLOADED,
+                            Toast.LENGTH_SHORT).show();
                 }
-
             };
             handler.postDelayed(runnable, 0);
 
         } else if (citySwitch.isChecked() && !indexSwitch.isChecked()) {
 
             handler = new Handler();
-            runnable = new Runnable() {
-                @Override
-                public void run() {
-                    List<AirIndexStation> stationListByCity = databaseHandler.getStationListByCity(citySpinner.getSelectedItem().toString());
-                    if (stationListByCity.size() == 0) {
-                        Toast.makeText(getContext(), NO_DATA,
-                                Toast.LENGTH_LONG).show();
-                    } else {
-                        setupAdapter(stationListByCity);
-                        Toast.makeText(getContext(), DATA_DOWNLOADED,
-                                Toast.LENGTH_SHORT).show();
-                    }
+            runnable = () -> {
+                List<AirIndexStation> stationListByCity = databaseHandler.getStationListByCity(citySpinner.getSelectedItem().toString());
+                if (stationListByCity.size() == 0) {
+                    Toast.makeText(getContext(), NO_DATA,
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    setupAdapter(stationListByCity);
+                    Toast.makeText(getContext(), DATA_DOWNLOADED,
+                            Toast.LENGTH_SHORT).show();
                 }
             };
 
         } else if (!citySwitch.isChecked() && indexSwitch.isChecked()) {
             handler = new Handler();
-            runnable = new Runnable() {
-                @Override
-                public void run() {
-                    List<AirIndexStation> stationListByIndex = databaseHandler.getStationListByIndex(indexSpinner.getSelectedItem().toString());
-                    if (stationListByIndex.size() == 0) {
-                        Toast.makeText(getContext(), NO_DATA,
-                                Toast.LENGTH_LONG).show();
-                    } else {
-                        setupAdapter(stationListByIndex);
-                        Toast.makeText(getContext(), DATA_DOWNLOADED,
-                                Toast.LENGTH_SHORT).show();
-
-                    }
+            runnable = () -> {
+                List<AirIndexStation> stationListByIndex = databaseHandler.getStationListByIndex(indexSpinner.getSelectedItem().toString());
+                if (stationListByIndex.size() == 0) {
+                    Toast.makeText(getContext(), NO_DATA,
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    setupAdapter(stationListByIndex);
+                    Toast.makeText(getContext(), DATA_DOWNLOADED,
+                            Toast.LENGTH_SHORT).show();
                 }
             };
         } else if (!citySwitch.isChecked() && !indexSwitch.isChecked()) {
@@ -194,12 +178,7 @@ public class SearchStationFragment extends Fragment implements View.OnClickListe
     private void setupAdapter(final List<AirIndexStation> airIndexStations) {
         StationsAdapter stationsAdapter = new StationsAdapter(getActivity().getBaseContext(), R.layout.station_row, airIndexStations);
         listView.setAdapter(stationsAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "Wybrano stacje: " + airIndexStations.get(position).getStationName(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        listView.setOnItemClickListener((parent, view, position, id) -> Toast.makeText(getActivity(), "Wybrano stacje: " + airIndexStations.get(position).getStationName(), Toast.LENGTH_SHORT).show());
     }
 
 }

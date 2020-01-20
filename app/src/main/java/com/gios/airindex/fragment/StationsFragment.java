@@ -55,11 +55,6 @@ public class StationsFragment extends Fragment {
         final List<AirIndexStation> airIndexStations = databaseHandler.getAll();
         StationsAdapter stationsAdapter = new StationsAdapter(getActivity().getBaseContext(), R.layout.station_row, airIndexStations);
         listView.setAdapter(stationsAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "Wybrano stacje: " + airIndexStations.get(position).getStationName(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        listView.setOnItemClickListener((parent, view, position, id) -> Toast.makeText(getActivity(), "Wybrano stacje: " + airIndexStations.get(position).getStationName(), Toast.LENGTH_SHORT).show());
     }
 }
