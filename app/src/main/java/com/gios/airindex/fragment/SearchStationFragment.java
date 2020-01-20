@@ -148,7 +148,6 @@ public class SearchStationFragment extends Fragment implements View.OnClickListe
                     setupAdapter(stationListByIndex);
                     Toast.makeText(getContext(), DATA_DOWNLOADED,
                             Toast.LENGTH_SHORT).show();
-
                 }
             };
         } else if (!citySwitch.isChecked() && !indexSwitch.isChecked()) {
