@@ -82,24 +82,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 R.string.navigation_drawer_open, navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                switch (menuItem.getItemId()) {
-                    case R.id.nav_start:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StartFragment()).commit();
-                        break;
-                    case R.id.nav_stations:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StationsFragment()).commit();
-                        break;
-                    case R.id.nav_search:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchStationFragment()).commit();
-                        break;
-                }
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return false;
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.nav_start:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StartFragment()).commit();
+                    break;
+                case R.id.nav_stations:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StationsFragment()).commit();
+                    break;
+                case R.id.nav_search:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchStationFragment()).commit();
+                    break;
             }
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return false;
         });
     }
 
