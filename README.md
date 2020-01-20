@@ -18,6 +18,7 @@ Data can be filtered by: city, air index quality or both
 
 #### Technologies
 
+- Java 8
 - Android SDK
 - Retrofit 2
 - OkHttp
